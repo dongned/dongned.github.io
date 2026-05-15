@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加班规则详解 - Dong's Tools</title>
+    <meta name="description" content="详解工作日和休息日的加班计算规则，包括午休扣除、晚餐时间、跨天处理等常见问题。">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.8; color: #333; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        nav { display: flex; justify-content: center; gap: 24px; padding: 16px 0; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        nav a { color: #94a3b8; text-decoration: none; font-size: 0.95em; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; }
+        nav a:hover { color: #60a5fa; background: rgba(96,165,250,0.1); }
+        nav a.active { color: #60a5fa; }
+        .section { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.08); }
+        h1 { color: #f1f5f9; font-size: 2em; margin-bottom: 24px; }
+        h2 { color: #60a5fa; margin-bottom: 16px; font-size: 1.5em; }
+        h3 { color: #93c5fd; margin: 16px 0 8px; font-size: 1.15em; }
+        p { color: #cbd5e1; margin-bottom: 12px; }
+        ul, ol { color: #cbd5e1; margin-bottom: 12px; padding-left: 24px; }
+        li { margin-bottom: 8px; }
+        a { color: #60a5fa; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .example { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); border-radius: 12px; padding: 20px; margin: 16px 0; }
+        .example h4 { color: #93c5fd; margin-bottom: 8px; }
+        .example p { color: #94a3b8; margin-bottom: 6px; }
+        .highlight { color: #fbbf24; font-weight: bold; }
+        footer { text-align: center; color: #475569; margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/">首页</a>
+            <a href="about.html">关于</a>
+            <a href="overtime-rules.html" class="active">加班规则详解</a>
+            <a href="time-tips.html">工时管理技巧</a>
+            <a href="privacy.html">隐私政策</a>
+        </nav>
+
+        <h1>加班规则详解</h1>
+
+        <section class="section">
+            <h2>工作日加班</h2>
+            <p>工作日加班是指在你正常班次结束之后继续工作的时间。计算规则如下：</p>
+            <ol>
+                <li>加班起始时间 = 你的标准下班时间（从考勤系统获取）</li>
+                <li>加班结束时间 = 你实际打卡离开的时间</li>
+                <li>扣除 17:30-18:30 的晚餐时间（1小时）</li>
+                <li>单日加班时长上限为 12 小时</li>
+                <li>结果向下取整到半小时</li>
+            </ol>
+
+            <div class="example">
+                <h4>示例 1：正常工作日加班</h4>
+                <p>标准下班时间：17:30</p>
+                <p>实际离开时间：20:30</p>
+                <p>计算：20:30 - 17:30 = 3小时</p>
+                <p>扣除晚餐（17:30-18:30）：3 - 1 = <span class="highlight">2小时</span></p>
+            </div>
+
+            <div class="example">
+                <h4>示例 2：标准下班较晚</h4>
+                <p>标准下班时间：18:00</p>
+                <p>实际离开时间：21:00</p>
+                <p>计算：21:00 - 18:00 = 3小时</p>
+                <p>扣除晚餐（17:30-18:30，与18:00-21:00重叠30分钟）：3 - 0.5 = <span class="highlight">2.5小时</span></p>
+            </div>
+
+            <div class="example">
+                <h4>示例 3：提前离开无加班</h4>
+                <p>标准下班时间：17:30</p>
+                <p>实际离开时间：17:00</p>
+                <p>计算：早于标准下班时间，<span class="highlight">0小时</span></p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>休息日加班</h2>
+            <p>休息日（周末、法定假日）加班按全天实际工作时间计算：</p>
+            <ol>
+                <li>加班时间 = 实际上班时间 到 实际下班时间</li>
+                <li>扣除 12:00-13:00 午休时间（1小时）</li>
+                <li>扣除 17:30-18:30 晚餐时间（1小时）</li>
+                <li>结果向下取整到半小时</li>
+            </ol>
+
+            <div class="example">
+                <h4>示例 4：全天休息日加班</h4>
+                <p>上班时间：08:30</p>
+                <p>下班时间：18:30</p>
+                <p>总时长：10小时</p>
+                <p>扣除午休（12:00-13:00）：-1小时</p>
+                <p>扣除晚餐（17:30-18:30）：-1小时</p>
+                <p>结果：<span class="highlight">8小时</span></p>
+            </div>
+
+            <div class="example">
+                <h4>示例 5：半天休息日加班</h4>
+                <p>上班时间：08:30</p>
+                <p>下班时间：12:30</p>
+                <p>总时长：4小时</p>
+                <p>扣除午休（12:00-13:00，与12:00-12:30重叠30分钟）：-0.5小时</p>
+                <p>结果：3.5 → 向下取整 = <span class="highlight">3.5小时</span></p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>跨天情况处理</h2>
+            <p>当你的下班打卡时间早于上班打卡时间时（例如夜班），系统自动识别为跨天：</p>
+            <ul>
+                <li>上班时间：22:00，下班时间：06:00 → 自动计算为 22:00 到次日 06:00</li>
+                <li>工作时长 = 8 小时</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>取整规则</h2>
+            <p>所有加班时长结果向下取整到 0.5 小时（30分钟），不足 30 分钟的部分不计入：</p>
+            <ul>
+                <li>2小时17分 → 2.0小时</li>
+                <li>2小时32分 → 2.5小时</li>
+                <li>3小时01分 → 3.0小时</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>常见疑问</h2>
+            <h3>为什么晚餐时间固定在 17:30-18:30？</h3>
+            <p>这是大多数制造业企业的标准晚餐时段。如果你的公司晚餐时间不同，计算结果可能有差异，请以公司 HR 系统为准。</p>
+
+            <h3>调休半天怎么算？</h3>
+            <p>调休半天按半天休息日处理，计算逻辑与休息日相同，但只算半天的工作时间。</p>
+
+            <h3>午休时间是固定的吗？</h3>
+            <p>午休时间 12:00-13:00 仅在休息日加班时扣除。工作日加班不扣除午休，因为工作日加班是从标准下班时间开始算的。</p>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Dong's Tools. Built with &#10084; and hosted on GitHub Pages. | <a href="privacy.html" style="color:#60a5fa;">隐私政策</a></p>
+        </footer>
+    </div>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2011248514688603" crossorigin="anonymous"></script>
+</body>
+</html>

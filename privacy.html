@@ -21,11 +21,22 @@
         a { color: #60a5fa; text-decoration: none; }
         a:hover { text-decoration: underline; }
         .back { display: inline-block; margin-bottom: 24px; color: #60a5fa; }
+        nav { display: flex; justify-content: center; gap: 24px; padding: 16px 0; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        nav a { color: #94a3b8; text-decoration: none; font-size: 0.95em; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; }
+        nav a:hover { color: #60a5fa; background: rgba(96,165,250,0.1); }
+        nav a.active { color: #60a5fa; }
         footer { text-align: center; color: #475569; margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.9em; }
     </style>
 </head>
 <body>
     <div class="container">
+        <nav>
+            <a href="/">首页</a>
+            <a href="about.html">关于</a>
+            <a href="overtime-rules.html">加班规则详解</a>
+            <a href="time-tips.html">工时管理技巧</a>
+            <a href="privacy.html" class="active">隐私政策</a>
+        </nav>
         <a class="back" href="/">&larr; 返回首页</a>
         <h1>隐私政策</h1>
         <p>最后更新日期：2025 年 5 月</p>
@@ -65,5 +76,7 @@
             <p>&copy; 2025 Dong's Tools.</p>
         </footer>
     </div>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2011248514688603" crossorigin="anonymous"></script>
 </body>
 </html>
